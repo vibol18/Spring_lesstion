@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: real_school
+  profiles:
+    active: dev
+
+server:
+  port: 8080
