@@ -34,12 +34,9 @@ public class testController {
         return List.of(
             Map.of("id",12,"name","Bslanhoun"),
             Map.of("id",13,"name","Ounslbongort"),
-            Map.of("id",14,"name","Why "),
-            Map.of("id",15,"name","Heryy oun")
+            Map.of("id",12,"name","Why "),
+            Map.of("id",12,"name","Heryy oun")
         );
-    }
-    {
-
     }
     @GetMapping("/hello")
     public  String name()
