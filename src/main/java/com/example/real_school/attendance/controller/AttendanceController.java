@@ -9,4 +9,9 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class AttendanceController {
     private final AttendanceService attendanceService;
+
+    @GetMapping
+    public String getAttendance() {
+        return "Attendance";
+    }
 }

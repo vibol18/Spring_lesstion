@@ -1,0 +1,197 @@
+=================== AUTH ===================
+POST   /api/auth/register
+POST   /api/auth/login
+POST   /api/auth/refresh-token
+POST   /api/auth/logout
+POST   /api/auth/forgot-password
+POST   /api/auth/reset-password
+
+=================== USERS ===================
+GET    /api/users
+GET    /api/users/{id}
+PUT    /api/users/{id}
+DELETE /api/users/{id}
+PATCH  /api/users/{id}/status
+
+=================== ACADEMIC STRUCTURE ===================
+GET    /api/academic-years
+POST   /api/academic-years
+GET    /api/academic-years/{id}
+PUT    /api/academic-years/{id}
+PATCH  /api/academic-years/{id}/set-current
+
+GET    /api/classes
+POST   /api/classes
+GET    /api/classes/{id}
+PUT    /api/classes/{id}
+DELETE /api/classes/{id}
+
+GET    /api/sections
+POST   /api/sections
+GET    /api/sections/{id}
+PUT    /api/sections/{id}
+DELETE /api/sections/{id}
+GET    /api/classes/{classId}/sections
+
+GET    /api/subjects
+POST   /api/subjects
+GET    /api/subjects/{id}
+PUT    /api/subjects/{id}
+DELETE /api/subjects/{id}
+GET    /api/classes/{classId}/subjects
+
+POST   /api/class-subject-teacher
+GET    /api/class-subject-teacher/section/{sectionId}
+DELETE /api/class-subject-teacher/{id}
+
+GET    /api/enrollments
+POST   /api/enrollments
+GET    /api/enrollments/student/{studentId}
+PUT    /api/enrollments/{id}
+
+=================== STUDENTS ===================
+GET    /api/students
+POST   /api/students
+GET    /api/students/{id}
+PUT    /api/students/{id}
+DELETE /api/students/{id}
+GET    /api/students/section/{sectionId}
+GET    /api/students/{id}/full-profile
+
+GET    /api/parents
+POST   /api/parents
+GET    /api/parents/{id}
+PUT    /api/parents/{id}
+GET    /api/parents/{id}/children
+POST   /api/students/{studentId}/parents/{parentId}
+
+=================== TEACHERS ===================
+GET    /api/teachers
+POST   /api/teachers
+GET    /api/teachers/{id}
+PUT    /api/teachers/{id}
+DELETE /api/teachers/{id}
+GET    /api/teachers/{id}/subjects
+GET    /api/teachers/{id}/timetable
+
+=================== STAFF ===================
+GET    /api/staff
+POST   /api/staff
+GET    /api/staff/{id}
+PUT    /api/staff/{id}
+DELETE /api/staff/{id}
+
+=================== ATTENDANCE ===================
+POST   /api/attendance
+GET    /api/attendance/student/{studentId}
+GET    /api/attendance/section/{sectionId}/date/{date}
+PUT    /api/attendance/{id}
+GET    /api/attendance/student/{studentId}/summary
+
+POST   /api/staff-attendance
+GET    /api/staff-attendance/staff/{staffId}
+
+=================== TIMETABLE ===================
+GET    /api/timetable/section/{sectionId}
+POST   /api/timetable
+PUT    /api/timetable/{id}
+DELETE /api/timetable/{id}
+
+=================== EXAMS ===================
+GET    /api/exams
+POST   /api/exams
+GET    /api/exams/{id}
+PUT    /api/exams/{id}
+
+GET    /api/exam-schedule/exam/{examId}
+POST   /api/exam-schedule
+PUT    /api/exam-schedule/{id}
+
+POST   /api/exam-results
+GET    /api/exam-results/student/{studentId}
+GET    /api/exam-results/exam/{examId}/subject/{subjectId}
+PUT    /api/exam-results/{id}
+
+GET    /api/report-cards/student/{studentId}
+POST   /api/report-cards/generate/{examId}
+GET    /api/report-cards/{id}/download-pdf
+
+=================== ASSIGNMENTS ===================
+GET    /api/assignments/section/{sectionId}
+POST   /api/assignments
+GET    /api/assignments/{id}
+PUT    /api/assignments/{id}
+DELETE /api/assignments/{id}
+
+POST   /api/assignment-submissions
+GET    /api/assignment-submissions/assignment/{assignmentId}
+GET    /api/assignment-submissions/student/{studentId}
+PATCH  /api/assignment-submissions/{id}/grade
+
+=================== FEES ===================
+GET    /api/fee-categories
+POST   /api/fee-categories
+PUT    /api/fee-categories/{id}
+
+POST   /api/fee-payments
+GET    /api/fee-payments/student/{studentId}
+GET    /api/fee-payments/{id}/receipt-pdf
+GET    /api/fee-payments/pending
+
+=================== LIBRARY ===================
+GET    /api/library/books
+POST   /api/library/books
+GET    /api/library/books/{id}
+PUT    /api/library/books/{id}
+GET    /api/library/books/search?q=
+
+POST   /api/library/transactions/issue
+POST   /api/library/transactions/{id}/return
+GET    /api/library/transactions/student/{studentId}
+GET    /api/library/transactions/overdue
+
+=================== HOSTEL ===================
+GET    /api/hostel/blocks
+POST   /api/hostel/blocks
+GET    /api/hostel/rooms
+POST   /api/hostel/rooms
+GET    /api/hostel/rooms/available
+
+POST   /api/hostel/allocations
+GET    /api/hostel/allocations/student/{studentId}
+PATCH  /api/hostel/allocations/{id}/vacate
+
+=================== TRANSPORT ===================
+GET    /api/transport/routes
+POST   /api/transport/routes
+GET    /api/transport/routes/{id}/stops
+POST   /api/transport/stops
+
+POST   /api/transport/student-transport
+GET    /api/transport/student-transport/student/{studentId}
+
+=================== COMMUNICATION ===================
+GET    /api/notices
+POST   /api/notices
+GET    /api/notices/{id}
+DELETE /api/notices/{id}
+
+GET    /api/events
+POST   /api/events
+GET    /api/events/{id}
+PUT    /api/events/{id}
+
+GET    /api/messages/inbox
+GET    /api/messages/sent
+POST   /api/messages
+PATCH  /api/messages/{id}/read
+
+GET    /api/leave-applications
+POST   /api/leave-applications
+PATCH  /api/leave-applications/{id}/approve
+PATCH  /api/leave-applications/{id}/reject
+
+=================== NOTIFICATIONS ===================
+GET    /api/notifications/user/{userId}
+PATCH  /api/notifications/{id}/read
+DELETE /api/notifications/{id}

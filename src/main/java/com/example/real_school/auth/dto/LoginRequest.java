@@ -1,9 +1,20 @@
 package com.example.real_school.auth.dto;
 
-import lombok.Data;
+import jakarta.validation.constraints.NotBlank;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class LoginRequest {
-    private String username;
+
+    @NotBlank(message = "Username or email is required")
+    private String usernameOrEmail;
+
+    @NotBlank(message = "Password is required")
     private String password;
 }

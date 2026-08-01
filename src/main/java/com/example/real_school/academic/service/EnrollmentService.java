@@ -1,3 +1,11 @@
 package com.example.real_school.academic.service;
 
-public interface EnrollmentService {}
+import com.example.real_school.academic.dto.EnrollmentDto;
+import java.util.List;
+
+public interface EnrollmentService {
+    List<EnrollmentDto> getAllEnrollments();
+    EnrollmentDto createEnrollment(EnrollmentDto dto);
+    List<EnrollmentDto> getEnrollmentsByStudentId(Long studentId);
+    EnrollmentDto updateEnrollment(Long id, EnrollmentDto dto);
+}

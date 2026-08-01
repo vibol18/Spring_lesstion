@@ -1,0 +1,312 @@
+school-management-system/
+├── pom.xml
+├── mvnw
+├── mvnw.cmd
+├── README.md
+├── .gitignore
+│
+├── src/
+│   ├── main/
+│   │   ├── java/com/school/management/
+│   │   │   │
+│   │   │   ├── SchoolManagementApplication.java
+│   │   │   │
+│   │   │   ├── config/
+│   │   │   │   ├── SecurityConfig.java
+│   │   │   │   ├── JwtConfig.java
+│   │   │   │   ├── SwaggerConfig.java
+│   │   │   │   ├── WebConfig.java
+│   │   │   │   ├── ModelMapperConfig.java
+│   │   │   │   └── AsyncConfig.java
+│   │   │   │
+│   │   │   ├── security/
+│   │   │   │   ├── JwtTokenProvider.java
+│   │   │   │   ├── JwtAuthFilter.java
+│   │   │   │   ├── CustomUserDetailsService.java
+│   │   │   │   └── UserPrincipal.java
+│   │   │   │
+│   │   │   ├── common/
+│   │   │   │   ├── dto/
+│   │   │   │   │   ├── ApiResponse.java
+│   │   │   │   │   ├── PageResponse.java
+│   │   │   │   │   └── ErrorResponse.java
+│   │   │   │   ├── exception/
+│   │   │   │   │   ├── GlobalExceptionHandler.java
+│   │   │   │   │   ├── ResourceNotFoundException.java
+│   │   │   │   │   ├── BadRequestException.java
+│   │   │   │   │   └── UnauthorizedException.java
+│   │   │   │   ├── enums/
+│   │   │   │   │   ├── Role.java
+│   │   │   │   │   ├── AttendanceStatus.java
+│   │   │   │   │   ├── PaymentStatus.java
+│   │   │   │   │   └── PaymentMode.java
+│   │   │   │   └── util/
+│   │   │   │       ├── DateUtils.java
+│   │   │   │       └── FileUploadUtils.java
+│   │   │   │
+│   │   │   ├── auth/
+│   │   │   │   ├── controller/AuthController.java
+│   │   │   │   ├── service/
+│   │   │   │   │   ├── AuthService.java
+│   │   │   │   │   └── impl/AuthServiceImpl.java
+│   │   │   │   └── dto/
+│   │   │   │       ├── LoginRequest.java
+│   │   │   │       ├── LoginResponse.java
+│   │   │   │       └── RegisterRequest.java
+│   │   │   │
+│   │   │   ├── user/
+│   │   │   │   ├── entity/User.java
+│   │   │   │   ├── entity/Role.java
+│   │   │   │   ├── repository/UserRepository.java
+│   │   │   │   ├── repository/RoleRepository.java
+│   │   │   │   ├── service/
+│   │   │   │   │   ├── UserService.java
+│   │   │   │   │   └── impl/UserServiceImpl.java
+│   │   │   │   ├── controller/UserController.java
+│   │   │   │   └── dto/UserDto.java
+│   │   │   │
+│   │   │   ├── academic/
+│   │   │   │   ├── entity/
+│   │   │   │   │   ├── AcademicYear.java
+│   │   │   │   │   ├── SchoolClass.java
+│   │   │   │   │   ├── Section.java
+│   │   │   │   │   ├── Subject.java
+│   │   │   │   │   ├── ClassSubjectTeacher.java
+│   │   │   │   │   └── Enrollment.java
+│   │   │   │   ├── repository/
+│   │   │   │   │   ├── AcademicYearRepository.java
+│   │   │   │   │   ├── SchoolClassRepository.java
+│   │   │   │   │   ├── SectionRepository.java
+│   │   │   │   │   ├── SubjectRepository.java
+│   │   │   │   │   └── EnrollmentRepository.java
+│   │   │   │   ├── service/
+│   │   │   │   │   ├── AcademicYearService.java
+│   │   │   │   │   ├── ClassService.java
+│   │   │   │   │   ├── SectionService.java
+│   │   │   │   │   ├── SubjectService.java
+│   │   │   │   │   ├── EnrollmentService.java
+│   │   │   │   │   └── impl/
+│   │   │   │   │       ├── AcademicYearServiceImpl.java
+│   │   │   │   │       ├── ClassServiceImpl.java
+│   │   │   │   │       ├── SectionServiceImpl.java
+│   │   │   │   │       ├── SubjectServiceImpl.java
+│   │   │   │   │       └── EnrollmentServiceImpl.java
+│   │   │   │   ├── controller/
+│   │   │   │   │   ├── ClassController.java
+│   │   │   │   │   ├── SectionController.java
+│   │   │   │   │   └── SubjectController.java
+│   │   │   │   └── dto/
+│   │   │   │       ├── ClassDto.java
+│   │   │   │       ├── SectionDto.java
+│   │   │   │       └── SubjectDto.java
+│   │   │   │
+│   │   │   ├── student/
+│   │   │   │   ├── entity/Student.java
+│   │   │   │   ├── entity/Parent.java
+│   │   │   │   ├── entity/StudentParent.java
+│   │   │   │   ├── repository/StudentRepository.java
+│   │   │   │   ├── repository/ParentRepository.java
+│   │   │   │   ├── service/
+│   │   │   │   │   ├── StudentService.java
+│   │   │   │   │   ├── ParentService.java
+│   │   │   │   │   └── impl/
+│   │   │   │   │       ├── StudentServiceImpl.java
+│   │   │   │   │       └── ParentServiceImpl.java
+│   │   │   │   ├── controller/StudentController.java
+│   │   │   │   ├── controller/ParentController.java
+│   │   │   │   └── dto/
+│   │   │   │       ├── StudentDto.java
+│   │   │   │       ├── StudentCreateRequest.java
+│   │   │   │       └── ParentDto.java
+│   │   │   │
+│   │   │   ├── teacher/
+│   │   │   │   ├── entity/Teacher.java
+│   │   │   │   ├── repository/TeacherRepository.java
+│   │   │   │   ├── service/
+│   │   │   │   │   ├── TeacherService.java
+│   │   │   │   │   └── impl/TeacherServiceImpl.java
+│   │   │   │   ├── controller/TeacherController.java
+│   │   │   │   └── dto/TeacherDto.java
+│   │   │   │
+│   │   │   ├── staff/
+│   │   │   │   ├── entity/Staff.java
+│   │   │   │   ├── repository/StaffRepository.java
+│   │   │   │   ├── service/
+│   │   │   │   │   ├── StaffService.java
+│   │   │   │   │   └── impl/StaffServiceImpl.java
+│   │   │   │   ├── controller/StaffController.java
+│   │   │   │   └── dto/StaffDto.java
+│   │   │   │
+│   │   │   ├── attendance/
+│   │   │   │   ├── entity/Attendance.java
+│   │   │   │   ├── entity/StaffAttendance.java
+│   │   │   │   ├── repository/AttendanceRepository.java
+│   │   │   │   ├── repository/StaffAttendanceRepository.java
+│   │   │   │   ├── service/
+│   │   │   │   │   ├── AttendanceService.java
+│   │   │   │   │   └── impl/AttendanceServiceImpl.java
+│   │   │   │   ├── controller/AttendanceController.java
+│   │   │   │   └── dto/AttendanceDto.java
+│   │   │   │
+│   │   │   ├── timetable/
+│   │   │   │   ├── entity/Timetable.java
+│   │   │   │   ├── repository/TimetableRepository.java
+│   │   │   │   ├── service/
+│   │   │   │   │   ├── TimetableService.java
+│   │   │   │   │   └── impl/TimetableServiceImpl.java
+│   │   │   │   ├── controller/TimetableController.java
+│   │   │   │   └── dto/TimetableDto.java
+│   │   │   │
+│   │   │   ├── exam/
+│   │   │   │   ├── entity/
+│   │   │   │   │   ├── Exam.java
+│   │   │   │   │   ├── ExamSchedule.java
+│   │   │   │   │   ├── ExamResult.java
+│   │   │   │   │   └── ReportCard.java
+│   │   │   │   ├── repository/
+│   │   │   │   │   ├── ExamRepository.java
+│   │   │   │   │   ├── ExamScheduleRepository.java
+│   │   │   │   │   ├── ExamResultRepository.java
+│   │   │   │   │   └── ReportCardRepository.java
+│   │   │   │   ├── service/
+│   │   │   │   │   ├── ExamService.java
+│   │   │   │   │   ├── ExamResultService.java
+│   │   │   │   │   ├── ReportCardService.java
+│   │   │   │   │   └── impl/
+│   │   │   │   │       ├── ExamServiceImpl.java
+│   │   │   │   │       ├── ExamResultServiceImpl.java
+│   │   │   │   │       └── ReportCardServiceImpl.java
+│   │   │   │   ├── controller/
+│   │   │   │   │   ├── ExamController.java
+│   │   │   │   │   └── ExamResultController.java
+│   │   │   │   └── dto/
+│   │   │   │       ├── ExamDto.java
+│   │   │   │       └── ExamResultDto.java
+│   │   │   │
+│   │   │   ├── assignment/
+│   │   │   │   ├── entity/Assignment.java
+│   │   │   │   ├── entity/AssignmentSubmission.java
+│   │   │   │   ├── repository/AssignmentRepository.java
+│   │   │   │   ├── repository/AssignmentSubmissionRepository.java
+│   │   │   │   ├── service/
+│   │   │   │   │   ├── AssignmentService.java
+│   │   │   │   │   └── impl/AssignmentServiceImpl.java
+│   │   │   │   ├── controller/AssignmentController.java
+│   │   │   │   └── dto/AssignmentDto.java
+│   │   │   │
+│   │   │   ├── fee/
+│   │   │   │   ├── entity/FeeCategory.java
+│   │   │   │   ├── entity/FeePayment.java
+│   │   │   │   ├── repository/FeeCategoryRepository.java
+│   │   │   │   ├── repository/FeePaymentRepository.java
+│   │   │   │   ├── service/
+│   │   │   │   │   ├── FeeService.java
+│   │   │   │   │   └── impl/FeeServiceImpl.java
+│   │   │   │   ├── controller/FeeController.java
+│   │   │   │   └── dto/
+│   │   │   │       ├── FeeCategoryDto.java
+│   │   │   │       └── FeePaymentDto.java
+│   │   │   │
+│   │   │   ├── library/
+│   │   │   │   ├── entity/LibraryBook.java
+│   │   │   │   ├── entity/LibraryTransaction.java
+│   │   │   │   ├── repository/LibraryBookRepository.java
+│   │   │   │   ├── repository/LibraryTransactionRepository.java
+│   │   │   │   ├── service/
+│   │   │   │   │   ├── LibraryService.java
+│   │   │   │   │   └── impl/LibraryServiceImpl.java
+│   │   │   │   ├── controller/LibraryController.java
+│   │   │   │   └── dto/
+│   │   │   │       ├── BookDto.java
+│   │   │   │       └── LibraryTransactionDto.java
+│   │   │   │
+│   │   │   ├── hostel/
+│   │   │   │   ├── entity/HostelBlock.java
+│   │   │   │   ├── entity/HostelRoom.java
+│   │   │   │   ├── entity/HostelAllocation.java
+│   │   │   │   ├── repository/HostelRoomRepository.java
+│   │   │   │   ├── repository/HostelAllocationRepository.java
+│   │   │   │   ├── service/
+│   │   │   │   │   ├── HostelService.java
+│   │   │   │   │   └── impl/HostelServiceImpl.java
+│   │   │   │   ├── controller/HostelController.java
+│   │   │   │   └── dto/HostelAllocationDto.java
+│   │   │   │
+│   │   │   ├── transport/
+│   │   │   │   ├── entity/TransportRoute.java
+│   │   │   │   ├── entity/TransportStop.java
+│   │   │   │   ├── entity/StudentTransport.java
+│   │   │   │   ├── repository/TransportRouteRepository.java
+│   │   │   │   ├── repository/StudentTransportRepository.java
+│   │   │   │   ├── service/
+│   │   │   │   │   ├── TransportService.java
+│   │   │   │   │   └── impl/TransportServiceImpl.java
+│   │   │   │   ├── controller/TransportController.java
+│   │   │   │   └── dto/TransportRouteDto.java
+│   │   │   │
+│   │   │   ├── communication/
+│   │   │   │   ├── entity/
+│   │   │   │   │   ├── Notice.java
+│   │   │   │   │   ├── Event.java
+│   │   │   │   │   ├── Message.java
+│   │   │   │   │   └── LeaveApplication.java
+│   │   │   │   ├── repository/
+│   │   │   │   │   ├── NoticeRepository.java
+│   │   │   │   │   ├── EventRepository.java
+│   │   │   │   │   ├── MessageRepository.java
+│   │   │   │   │   └── LeaveApplicationRepository.java
+│   │   │   │   ├── service/
+│   │   │   │   │   ├── NoticeService.java
+│   │   │   │   │   ├── EventService.java
+│   │   │   │   │   ├── MessageService.java
+│   │   │   │   │   ├── LeaveApplicationService.java
+│   │   │   │   │   └── impl/
+│   │   │   │   │       ├── NoticeServiceImpl.java
+│   │   │   │   │       ├── EventServiceImpl.java
+│   │   │   │   │       ├── MessageServiceImpl.java
+│   │   │   │   │       └── LeaveApplicationServiceImpl.java
+│   │   │   │   ├── controller/
+│   │   │   │   │   ├── NoticeController.java
+│   │   │   │   │   ├── EventController.java
+│   │   │   │   │   ├── MessageController.java
+│   │   │   │   │   └── LeaveApplicationController.java
+│   │   │   │   └── dto/
+│   │   │   │       ├── NoticeDto.java
+│   │   │   │       ├── EventDto.java
+│   │   │   │       └── MessageDto.java
+│   │   │   │
+│   │   │   └── notification/
+│   │   │       ├── entity/Notification.java
+│   │   │       ├── entity/AuditLog.java
+│   │   │       ├── repository/NotificationRepository.java
+│   │   │       ├── repository/AuditLogRepository.java
+│   │   │       ├── service/
+│   │   │       │   ├── NotificationService.java
+│   │   │       │   └── impl/NotificationServiceImpl.java
+│   │   │       ├── controller/NotificationController.java
+│   │   │       └── listener/AuditEventListener.java
+│   │   │
+│   │   └── resources/
+│   │       ├── application.yml
+│   │       ├── application-dev.yml
+│   │       ├── application-prod.yml
+│   │       ├── db/migration/
+│   │       │   ├── V1__init_schema.sql
+│   │       │   ├── V2__seed_roles.sql
+│   │       │   └── V3__add_indexes.sql
+│   │       ├── static/
+│   │       └── templates/
+│   │
+│   └── test/
+│       └── java/com/school/management/
+│           ├── student/StudentServiceTest.java
+│           ├── attendance/AttendanceServiceTest.java
+│           ├── exam/ExamServiceTest.java
+│           ├── fee/FeeServiceTest.java
+│           └── integration/
+│               ├── StudentControllerIntegrationTest.java
+│               └── AuthControllerIntegrationTest.java
+│
+└── docker/
+    ├── Dockerfile
+    └── docker-compose.yml

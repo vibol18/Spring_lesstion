@@ -1,15 +1,18 @@
 package com.example.real_school.attendance.dto;
 
-import com.example.real_school.common.enums.AttendanceStatus;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import java.time.LocalDate;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class AttendanceDto {
     private Long id;
     private Long studentId;
     private Long sectionId;
-    private LocalDate date;
-    private AttendanceStatus status;
-    private String remarks;
+    private LocalDate attendanceDate;
+    private String status;
+    private String remark;
 }

@@ -1,7 +1,11 @@
 package com.example.real_school.user.entity;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "roles")
@@ -11,11 +15,22 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 public class Role {
+
+    public static final String ADMIN = "ADMIN";
+    public static final String TEACHER = "TEACHER";
+    public static final String STUDENT = "STUDENT";
+    public static final String PARENT = "PARENT";
+    public static final String STAFF = "STAFF";
+    public static final String LIBRARIAN = "LIBRARIAN";
+    public static final String ACCOUNTANT = "ACCOUNTANT";
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Enumerated(EnumType.STRING)
-    @Column(unique = true, nullable = false)
-    private com.example.real_school.common.enums.Role name;
+    @Column(nullable = false, unique = true, length = 50)
+    private String name;
+
+    @Column(length = 255)
+    private String description;
 }
