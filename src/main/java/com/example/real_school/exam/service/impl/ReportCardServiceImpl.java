@@ -4,4 +4,5 @@ import com.example.real_school.exam.service.ReportCardService;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ReportCardServiceImpl implements ReportCardService {}
+public class ReportCardServiceImpl implements ReportCardService {
+}

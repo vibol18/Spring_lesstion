@@ -4,4 +4,5 @@ import com.example.real_school.library.service.LibraryService;
 import org.springframework.stereotype.Service;
 
 @Service
-public class LibraryServiceImpl implements LibraryService {}
+public class LibraryServiceImpl implements LibraryService {
+}

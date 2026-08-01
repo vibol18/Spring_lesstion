@@ -1,22 +1,17 @@
 spring:
   datasource:
-    url: jdbc:h2:mem:school_dev;DB_CLOSE_DELAY=-1
-    username: sa
+    url: jdbc:mysql://localhost:3306/real_school?createDatabaseIfNotExist=true&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+    username: root
     password:
-    driver-class-name: org.h2.Driver
-  h2:
-    console:
-      enabled: true
-      path: /h2-console
+    driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
-    database-platform: org.hibernate.dialect.H2Dialect
+    database-platform: org.hibernate.dialect.MySQLDialect
     hibernate:
       ddl-auto: update
     show-sql: true
-  security:
-    user:
-      name: admin
-      password: admin123
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
 
 logging:
   level:

@@ -60,9 +60,7 @@ public class AuthServiceImpl implements AuthService {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         loginRequest.getUsernameOrEmail(),
-                        loginRequest.getPassword()
-                )
-        );
+                        loginRequest.getPassword()));
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
         UserPrincipal principal = (UserPrincipal) authentication.getPrincipal();
@@ -103,10 +101,9 @@ public class AuthServiceImpl implements AuthService {
                 .build();
 
         userRepository.save(user);
-       
+
     }
 
-    
     @Override
     @Transactional
     public LoginResponse refreshToken(RefreshTokenRequest request) {
