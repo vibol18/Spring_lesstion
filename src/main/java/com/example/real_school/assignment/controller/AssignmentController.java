@@ -14,7 +14,7 @@ import java.util.List;
 @RequestMapping("/api/assignments")
 @RequiredArgsConstructor
 public class AssignmentController {
-    
+
     private final AssignmentService assignmentService;
 
     @GetMapping("/section/{sectionId}")

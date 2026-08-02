@@ -31,14 +31,15 @@ public class AssignmentServiceImpl implements AssignmentService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<AssignmentDto> getAssignmentsBySection(Long sectionId) {
-        return assignmentRepository.findAll().stream()
-                .filter(a -> a.getSection() != null && a.getSection().getId().equals(sectionId))
+        return assignmentRepository.findBySectionId(sectionId).stream()
                 .map(this::mapToDto)
                 .collect(Collectors.toList());
     }
 
     @Override
+    @Transactional(readOnly = true)
     public AssignmentDto getAssignmentById(Long id) {
         Assignment assignment = assignmentRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Assignment not found with ID: " + id));
@@ -47,21 +48,28 @@ public class AssignmentServiceImpl implements AssignmentService {
 
     @Override
     public AssignmentDto createAssignment(AssignmentDto dto) {
-        Assignment assignment = new Assignment();
-        
+        if (dto.getSectionId() == null) {
+            throw new IllegalArgumentException("sectionId must not be null");
+        }
+        if (dto.getSubjectId() == null) {
+            throw new IllegalArgumentException("subjectId must not be null");
+        }
+
         Section section = sectionRepository.findById(dto.getSectionId())
-                .orElseThrow(() -> new RuntimeException("Section not found"));
-        assignment.setSection(section);
-        
+                .orElseThrow(() -> new RuntimeException("Section not found with ID: " + dto.getSectionId()));
+
         Subject subject = subjectRepository.findById(dto.getSubjectId())
-                .orElseThrow(() -> new RuntimeException("Subject not found"));
-        assignment.setSubject(subject);
-        
-        assignment.setTitle(dto.getTitle());
-        assignment.setDescription(dto.getDescription());
-        assignment.setDueDate(dto.getDueDate());
-        assignment.setFileUrl(dto.getFileUrl());
-        
+                .orElseThrow(() -> new RuntimeException("Subject not found with ID: " + dto.getSubjectId()));
+
+        Assignment assignment = Assignment.builder()
+                .title(dto.getTitle())
+                .description(dto.getDescription())
+                .dueDate(dto.getDueDate())
+                .fileUrl(dto.getFileUrl())
+                .section(section)
+                .subject(subject)
+                .build();
+
         return mapToDto(assignmentRepository.save(assignment));
     }
 
@@ -69,20 +77,24 @@ public class AssignmentServiceImpl implements AssignmentService {
     public AssignmentDto updateAssignment(Long id, AssignmentDto dto) {
         Assignment assignment = assignmentRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Assignment not found with ID: " + id));
-                
-        Section section = sectionRepository.findById(dto.getSectionId())
-                .orElseThrow(() -> new RuntimeException("Section not found"));
-        assignment.setSection(section);
-        
-        Subject subject = subjectRepository.findById(dto.getSubjectId())
-                .orElseThrow(() -> new RuntimeException("Subject not found"));
-        assignment.setSubject(subject);
-        
+
+        if (dto.getSectionId() != null) {
+            Section section = sectionRepository.findById(dto.getSectionId())
+                    .orElseThrow(() -> new RuntimeException("Section not found with ID: " + dto.getSectionId()));
+            assignment.setSection(section);
+        }
+
+        if (dto.getSubjectId() != null) {
+            Subject subject = subjectRepository.findById(dto.getSubjectId())
+                    .orElseThrow(() -> new RuntimeException("Subject not found with ID: " + dto.getSubjectId()));
+            assignment.setSubject(subject);
+        }
+
         assignment.setTitle(dto.getTitle());
         assignment.setDescription(dto.getDescription());
         assignment.setDueDate(dto.getDueDate());
         assignment.setFileUrl(dto.getFileUrl());
-        
+
         return mapToDto(assignmentRepository.save(assignment));
     }
 
@@ -95,14 +107,14 @@ public class AssignmentServiceImpl implements AssignmentService {
     }
 
     private AssignmentDto mapToDto(Assignment assignment) {
-        AssignmentDto dto = new AssignmentDto();
-        dto.setId(assignment.getId());
-        dto.setTitle(assignment.getTitle());
-        dto.setDescription(assignment.getDescription());
-        dto.setDueDate(assignment.getDueDate());
-        if (assignment.getSection() != null) dto.setSectionId(assignment.getSection().getId());
-        if (assignment.getSubject() != null) dto.setSubjectId(assignment.getSubject().getId());
-        dto.setFileUrl(assignment.getFileUrl());
-        return dto;
+        return AssignmentDto.builder()
+                .id(assignment.getId())
+                .title(assignment.getTitle())
+                .description(assignment.getDescription())
+                .dueDate(assignment.getDueDate())
+                .sectionId(assignment.getSection() != null ? assignment.getSection().getId() : null)
+                .subjectId(assignment.getSubject() != null ? assignment.getSubject().getId() : null)
+                .fileUrl(assignment.getFileUrl())
+                .build();
     }
 }
