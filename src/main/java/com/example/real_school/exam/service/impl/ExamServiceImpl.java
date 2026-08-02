@@ -45,7 +45,6 @@ public class ExamServiceImpl implements ExamService {
                 .orElseThrow(() -> new RuntimeException("Exam not found"));
         return mapToDto(exam);
     }
-
     @Override
     public ExamDto updateExam(Long id, ExamDto dto) {
         Exam exam = examRepository.findById(id)

@@ -52,7 +52,6 @@ public class AuthServiceImpl implements AuthService {
     @Value("${app.password-reset.expiration-minutes}")
     private long passwordResetExpirationMinutes;
 
-    // ==================== LOGIN ====================
 
     @Override
     @Transactional
@@ -76,9 +75,6 @@ public class AuthServiceImpl implements AuthService {
 
         return buildLoginResponse(user, accessToken, refreshToken);
     }
-
-    // ==================== REGISTER ====================
-
     @Override
     @Transactional
     public void registerUser(RegisterRequest registerRequest) {
@@ -99,9 +95,7 @@ public class AuthServiceImpl implements AuthService {
                 .role(role)
                 .isActive(true)
                 .build();
-
         userRepository.save(user);
-
     }
 
     @Override

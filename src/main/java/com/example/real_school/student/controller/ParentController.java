@@ -3,7 +3,6 @@ package com.example.real_school.student.controller;
 import com.example.real_school.student.dto.ParentDto;
 import com.example.real_school.student.dto.StudentDto;
 import com.example.real_school.student.service.ParentService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,29 +10,33 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("/api/parents")
-@RequiredArgsConstructor
 public class ParentController {
 
     private final ParentService parentService;
 
+    public ParentController(ParentService parentService) {
+        this.parentService = parentService;
+    }
+
     @GetMapping
-    public ResponseEntity<List<ParentDto>> getAll() {
+    public ResponseEntity<List<ParentDto>> getAllParents() {
         return ResponseEntity.ok(parentService.getAllParents());
     }
 
-    @PostMapping
-    public ResponseEntity<ParentDto> create(@RequestBody ParentDto parentDto) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(parentService.createParent(parentDto));
-    }
-
     @GetMapping("/{id}")
-    public ResponseEntity<ParentDto> getById(@PathVariable Long id) {
+    public ResponseEntity<ParentDto> getParentById(@PathVariable Long id) {
         return ResponseEntity.ok(parentService.getParentById(id));
     }
 
+    @PostMapping
+    public ResponseEntity<ParentDto> createParent(@RequestBody ParentDto parentDto) {
+        return new ResponseEntity<>(parentService.createParent(parentDto), HttpStatus.CREATED);
+    }
+
     @PutMapping("/{id}")
-    public ResponseEntity<ParentDto> update(@PathVariable Long id, @RequestBody ParentDto parentDto) {
+    public ResponseEntity<ParentDto> updateParent(@PathVariable Long id, @RequestBody ParentDto parentDto) {
         return ResponseEntity.ok(parentService.updateParent(id, parentDto));
     }
 

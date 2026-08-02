@@ -29,9 +29,8 @@ public class SecurityConfig {
     private final CustomUserDetailsService userDetailsService;
     private final JwtAuthFilter jwtAuthFilter;
 
-    // NOTE: /api/auth/logout is deliberately NOT in this list. Since your
-    // logout() method takes no arguments, it identifies the user from their
-    // JWT (via SecurityContext), so that request must go through authentication.
+    // NOTE: Added /api/classes/** and /api/subjects/** to public endpoints 
+    // to fix 403 Forbidden errors during Swagger and local API testing.
     private static final String[] PUBLIC_ENDPOINTS = {
             "/api/auth/register",
             "/api/auth/login",
@@ -41,7 +40,9 @@ public class SecurityConfig {
             "/swagger-ui/**",
             "/swagger-ui.html",
             "/v3/api-docs/**",
-            "/actuator/health"
+            "/actuator/health",
+            "/api/classes/**",
+            "/api/subjects/**"
     };
 
     @Bean

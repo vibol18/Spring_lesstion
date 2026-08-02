@@ -1,5 +1,6 @@
 package com.example.real_school.student.controller;
 
+import com.example.real_school.student.dto.StudentCreateRequest;
 import com.example.real_school.student.dto.StudentDto;
 import com.example.real_school.student.dto.StudentFullProfileDto;
 import com.example.real_school.student.service.StudentService;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("/api/students")
 @RequiredArgsConstructor
 public class StudentController {
@@ -23,8 +25,8 @@ public class StudentController {
     }
 
     @PostMapping
-    public ResponseEntity<StudentDto> create(@RequestBody StudentDto studentDto) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(studentService.createStudent(studentDto));
+    public ResponseEntity<StudentDto> create(@RequestBody StudentCreateRequest request) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(studentService.createStudentWithUser(request));
     }
 
     @GetMapping("/{id}")
