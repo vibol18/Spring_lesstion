@@ -27,16 +27,19 @@ public class StudentServiceImpl implements StudentService {
     private final ParentRepository parentRepository;
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final com.example.real_school.user.repository.RoleRepository roleRepository;
 
     public StudentServiceImpl(
             StudentRepository studentRepository,
             ParentRepository parentRepository,
             UserRepository userRepository,
-            PasswordEncoder passwordEncoder) {
+            PasswordEncoder passwordEncoder,
+            com.example.real_school.user.repository.RoleRepository roleRepository) {
         this.studentRepository = studentRepository;
         this.parentRepository = parentRepository;
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.roleRepository = roleRepository;
     }
 
     @Override
@@ -75,6 +78,11 @@ public class StudentServiceImpl implements StudentService {
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         user.setFirstName(request.getFirstName());
         user.setLastName(request.getLastName());
+
+        com.example.real_school.user.entity.Role studentRole = roleRepository.findByName(com.example.real_school.user.entity.Role.STUDENT)
+                .orElseThrow(() -> new RuntimeException("Role STUDENT not found"));
+        user.setRole(studentRole);
+
         User savedUser = userRepository.save(user);
 
         Student student = Student.builder()
@@ -167,6 +175,9 @@ public class StudentServiceImpl implements StudentService {
                 .gender(student.getGender())
                 .bloodGroup(student.getBloodGroup())
                 .address(student.getAddress())
+                .firstName(student.getUser() != null ? student.getUser().getFirstName() : null)
+                .lastName(student.getUser() != null ? student.getUser().getLastName() : null)
+                .email(student.getUser() != null ? student.getUser().getEmail() : null)
                 .build();
     }
 }
