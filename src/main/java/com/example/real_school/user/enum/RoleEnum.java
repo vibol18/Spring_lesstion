@@ -1,0 +1,10 @@
+
+public enum RoleEnum {
+    ROLE_ADMIN,
+    ROLE_TEACHER,
+    ROLE_STUDENT,
+    ROLE_PARENT,
+    ROLE_STAFF,
+    ROLE_LIBRARIAN,
+    ROLE_ACCOUNTANT
+}

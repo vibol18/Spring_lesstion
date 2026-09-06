@@ -1,17 +1,96 @@
+# ============================================================
+# PRODUCTION PROFILE (Render / Docker)
+# Every secret and environment-specific value comes from an
+# environment variable. Nothing here is hard-coded for a real site.
+# ============================================================
+
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/real_school?createDatabaseIfNotExist=true&useSSL=false&serverTimezone=UTC
-    username: root
-    password: 
-    driver-class-name: com.mysql.cj.jdbc.Driver
+    # Set by Render as the internal PostgreSQL (or MySQL) connection string.
+    # Example (PostgreSQL on Render):
+    #   jdbc:postgresql://host:5432/dbname?sslmode=require
+    url: ${SPRING_DATASOURCE_URL}
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
+    # Default driver is PostgreSQL; override with SPRING_DATASOURCE_DRIVER
+    # if you deploy against MySQL (e.g. com.mysql.cj.jdbc.Driver).
+    driver-class-name: ${SPRING_DATASOURCE_DRIVER:org.postgresql.Driver}
+    hikari:
+      # Keep the pool small: Render Free has 512 MB RAM and Render free
+      # PostgreSQL allows ~10 connections.
+      maximum-pool-size: ${DB_POOL_SIZE:5}
+      minimum-idle: ${DB_MIN_IDLE:1}
+      connection-timeout: 30000
+      max-lifetime: 1800000
+      pool-name: RealSchoolHikariPool
+
   jpa:
+    # Flyway creates the base tables; Hibernate "update" idempotently adds
+    # the remaining entity tables on a fresh database. "validate" is NOT used
+    # because the existing migrations (V1-V3) do not contain the full entity
+    # schema, so validate would fail at startup on a new database.
     hibernate:
       ddl-auto: update
     show-sql: false
+    open-in-view: false
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.MySQLDialect
+        jdbc:
+          time_zone: UTC
+
+  flyway:
+    # Base PostgreSQL migrations are in classpath:db/migration. Enable for
+    # PostgreSQL; disable (FLYWAY_ENABLED=false) if you point at MySQL where
+    # the BIGSERIAL-based scripts cannot run.
+    enabled: ${FLYWAY_ENABLED:true}
+
+  mail:
+    # spring-boot-starter-mail is present but EmailServiceImpl is currently a
+    # stub. These settings are wired for the future; leave blank if unused.
+    host: ${MAIL_HOST:}
+    port: ${MAIL_PORT:587}
+    username: ${MAIL_USERNAME:}
+    password: ${MAIL_PASSWORD:}
+    properties:
+      mail:
+        smtp:
+          auth: ${MAIL_SMTP_AUTH:true}
+          starttls:
+            enable: ${MAIL_SMTP_STARTTLS:true}
+
+# Render provides PORT (default 10000 in the Dockerfile). Bind to 0.0.0.0 so
+# the container is reachable from outside ("No open ports detected" fix).
+server:
+  port: ${PORT:10000}
+  address: 0.0.0.0
+  tomcat:
+    threads:
+      max: ${TOMCAT_MAX_THREADS:50}
+    accept-count: ${TOMCAT_ACCEPT_COUNT:50}
+
+# JWT secrets are injected via environment variables. There is intentionally
+# NO default JWT_SECRET here so a missing secret fails fast at startup.
+app:
+  jwt:
+    secret: ${JWT_SECRET}
+    access-token-expiration-ms: ${JWT_ACCESS_EXPIRATION_MS:3600000}
+    refresh-token-expiration-ms: ${JWT_REFRESH_EXPIRATION_MS:604800000}
+  password-reset:
+    expiration-minutes: ${PASSWORD_RESET_EXPIRATION_MINUTES:30}
+
+# Comma-separated list of allowed browser origins (CORS).
+# Local development ports are included as a convenience; set FRONTEND_URL to
+# your production frontend (e.g. https://my-school-frontend.onrender.com).
+cors:
+  allowed-origins: ${FRONTEND_URL:http://localhost:3000,http://localhost:5173,http://127.0.0.1:3000,http://127.0.0.1:5173}
+
+# Uploaded files. Render Free has an EPHEMERAL filesystem: anything written
+# to this folder disappears on redeploy/restart/spin-down. Persist in
+# Cloudinary/S3/GCS/PG bytea for real production use.
+file:
+  upload-dir: ${FILE_UPLOAD_DIR:/tmp/uploads}
 
 logging:
   level:
-    com.example.real_school: INFO
+    root: ${LOG_LEVEL_ROOT:INFO}
+    com.example.real_school: ${LOG_LEVEL_APP:INFO}

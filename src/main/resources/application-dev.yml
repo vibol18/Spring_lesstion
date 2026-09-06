@@ -4,6 +4,10 @@ spring:
     username: root
     password:
     driver-class-name: com.mysql.cj.jdbc.Driver
+  # The migrations in db/migration use PostgreSQL syntax (BIGSERIAL), so Flyway
+  # stays off for the local MySQL dev database. Hibernate "update" builds the schema.
+  flyway:
+    enabled: false
   jpa:
     hibernate:
       ddl-auto: update

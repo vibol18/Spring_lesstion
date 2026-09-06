@@ -4,6 +4,22 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
+# Environment files & secrets (never commit real values)
+.env
+.env.*
+!.env.example
+
+# Local uploads (ephemeral; do not commit)
+uploads/
+logs/
+*.log
+
+# Maven / build output
+*.jar
+!mvnw
+!mvnw.cmd
+dependency-reduced-pom.xml
+
 ### STS ###
 .apt_generated
 .classpath
