@@ -5,11 +5,9 @@ spring:
     password:
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
-    # Let Hibernate auto-detect the dialect from the DB connection (no need to specify explicitly)
     hibernate:
       ddl-auto: update
     show-sql: true
-
 logging:
   level:
     com.example.real_school: DEBUG
