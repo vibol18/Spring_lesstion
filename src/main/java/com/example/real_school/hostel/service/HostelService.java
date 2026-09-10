@@ -11,10 +11,12 @@ public interface HostelService {
     HostelBlockDto createBlock(HostelBlockDto dto);
 
     // Rooms
+    List<HostelRoomDto> getAllRooms();
     List<HostelRoomDto> getRoomsByBlock(Long blockId);
     HostelRoomDto createRoom(HostelRoomDto dto);
 
     // Allocations
+    List<HostelAllocationDto> getAllocations();
     HostelAllocationDto allocateRoom(HostelAllocationDto dto);
     HostelAllocationDto vacateRoom(Long allocationId);
     List<HostelAllocationDto> getAllocationsByStudent(Long studentId);

@@ -30,7 +30,6 @@ public class AssignmentSubmissionServiceImpl implements AssignmentSubmissionServ
         this.assignmentRepository = assignmentRepository;
         this.studentRepository = studentRepository;
     }
-
     @Override
     public AssignmentSubmissionDto submitAssignment(AssignmentSubmissionDto dto) {
         AssignmentSubmission submission = new AssignmentSubmission();

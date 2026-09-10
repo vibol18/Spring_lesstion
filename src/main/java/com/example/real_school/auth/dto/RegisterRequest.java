@@ -26,6 +26,7 @@ public class RegisterRequest {
     @Size(min = 8, message = "Password must be at least 8 characters")
     private String password;
 
-    @NotBlank(message = "Role is required")
-    private String role; // ADMIN, TEACHER, STUDENT, PARENT, STAFF, LIBRARIAN, ACCOUNTANT
+    // Optional – registration always assigns the default USER role.
+    // The role cannot be chosen during self-registration.
+    private String role;
 }

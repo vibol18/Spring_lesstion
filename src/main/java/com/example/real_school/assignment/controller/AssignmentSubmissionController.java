@@ -19,17 +19,14 @@ public class AssignmentSubmissionController {
     public ResponseEntity<AssignmentSubmissionDto> submit(@RequestBody AssignmentSubmissionDto dto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(submissionService.submitAssignment(dto));
     }
-
     @GetMapping("/assignment/{assignmentId}")
     public ResponseEntity<List<AssignmentSubmissionDto>> getByAssignment(@PathVariable Long assignmentId) {
         return ResponseEntity.ok(submissionService.getSubmissionsByAssignment(assignmentId));
     }
-
     @GetMapping("/student/{studentId}")
     public ResponseEntity<List<AssignmentSubmissionDto>> getByStudent(@PathVariable Long studentId) {
         return ResponseEntity.ok(submissionService.getSubmissionsByStudent(studentId));
     }
-
     @PatchMapping("/{id}/grade")
     public ResponseEntity<AssignmentSubmissionDto> grade(
             @PathVariable Long id,

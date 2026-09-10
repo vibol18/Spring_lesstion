@@ -45,6 +45,11 @@ public class LibraryController {
     }
 
     // Transactions
+    @GetMapping("/transactions")
+    public ResponseEntity<List<LibraryTransactionDto>> getAllTransactions() {
+        return ResponseEntity.ok(libraryService.getAllTransactions());
+    }
+
     @PostMapping("/transactions/issue")
     public ResponseEntity<LibraryTransactionDto> issueBook(@RequestBody LibraryTransactionDto dto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(libraryService.issueBook(dto));

@@ -13,6 +13,7 @@ public interface LibraryService {
     List<BookDto> searchBooks(String query);
 
     // Transaction Operations
+    List<LibraryTransactionDto> getAllTransactions();
     LibraryTransactionDto issueBook(LibraryTransactionDto dto);
     LibraryTransactionDto returnBook(Long id);
     List<LibraryTransactionDto> getTransactionsByStudent(Long studentId);

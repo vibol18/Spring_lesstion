@@ -1,10 +1,14 @@
 package com.example.real_school.config;
 
 import com.example.real_school.user.entity.Role;
+import com.example.real_school.user.entity.User;
 import com.example.real_school.user.repository.RoleRepository;
+import com.example.real_school.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -15,10 +19,22 @@ import java.util.List;
 public class DataInitializer implements CommandLineRunner {
 
     private final RoleRepository roleRepository;
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
+
+    @Value("${app.admin.username:admin}")
+    private String adminUsername;
+
+    @Value("${app.admin.email:admin@school.com}")
+    private String adminEmail;
+
+    @Value("${app.admin.password:Admin123!}")
+    private String adminPassword;
 
     @Override
     public void run(String... args) {
         List<String> roleNames = List.of(
+                Role.USER,
                 Role.ADMIN,
                 Role.TEACHER,
                 Role.STUDENT,
@@ -37,5 +53,27 @@ public class DataInitializer implements CommandLineRunner {
                 log.info("Seeded role: {}", name);
             }
         }
+
+        seedDefaultAdmin();
+    }
+
+    private void seedDefaultAdmin() {
+        if (userRepository.existsByUsername(adminUsername)) {
+            return;
+        }
+        if (userRepository.existsByEmail(adminEmail)) {
+            log.warn("Skipped seeding admin: email {} is already registered", adminEmail);
+            return;
+        }
+        Role adminRole = roleRepository.findByName(Role.ADMIN)
+                .orElseThrow(() -> new IllegalStateException("ADMIN role missing, can't seed admin user"));
+        userRepository.save(User.builder()
+                .username(adminUsername)
+                .email(adminEmail)
+                .password(passwordEncoder.encode(adminPassword))
+                .role(adminRole)
+                .isActive(true)
+                .build());
+        log.info("Seeded default admin user: {}", adminUsername);
     }
 }

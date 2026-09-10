@@ -63,7 +63,7 @@ public class AttendanceServiceImpl implements AttendanceService {
     public List<AttendanceDto> getSectionAttendanceByDate(Long sectionId, LocalDate date) {
         return attendanceRepository.findAll().stream()
                 .filter(a -> a.getSection() != null && a.getSection().getId().equals(sectionId)
-                        && date.equals(a.getDate()))
+                        && (date == null || date.equals(a.getDate())))
                 .map(this::mapToDto)
                 .collect(Collectors.toList());
     }

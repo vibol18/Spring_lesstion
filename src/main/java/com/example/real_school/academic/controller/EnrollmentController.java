@@ -22,6 +22,11 @@ public class EnrollmentController {
         return ResponseEntity.ok(enrollmentService.getAllEnrollments());
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<EnrollmentDto> getById(@PathVariable Long id) {
+        return ResponseEntity.ok(enrollmentService.getEnrollmentById(id));
+    }
+
     @PostMapping
     public ResponseEntity<EnrollmentDto> create(@RequestBody EnrollmentDto dto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(enrollmentService.createEnrollment(dto));

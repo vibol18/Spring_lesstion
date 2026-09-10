@@ -1,7 +1,8 @@
 package com.example.real_school.user.dto;
 
+import com.example.real_school.user.entity.TwoFactorMethod;
 import lombok.*;
-import java.util.Set;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -12,8 +13,12 @@ public class UserDto {
     private Long id;
     private String username;
     private String email;
+    private String phone;
     private String firstName;
     private String lastName;
+    private String role;
     private Boolean enabled;
-    private Set<String> roles;
+    private Boolean twoFactorEnabled;
+    private TwoFactorMethod twoFactorMethod;
+    private LocalDateTime createdAt;
 }

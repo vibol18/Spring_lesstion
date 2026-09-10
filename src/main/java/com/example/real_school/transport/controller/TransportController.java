@@ -58,6 +58,11 @@ public class TransportController {
     }
 
     // --- Student Assignments ---
+    @GetMapping("/assignments")
+    public ResponseEntity<List<StudentTransportDto>> getAllStudentTransport() {
+        return ResponseEntity.ok(transportService.getAllStudentTransport());
+    }
+
     @PostMapping("/assignments")
     public ResponseEntity<StudentTransportDto> assignStudent(@RequestBody StudentTransportDto dto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(transportService.assignStudentToRoute(dto));

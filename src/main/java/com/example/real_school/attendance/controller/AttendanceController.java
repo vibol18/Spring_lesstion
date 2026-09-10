@@ -33,7 +33,7 @@ public class AttendanceController {
     @GetMapping("/section/{sectionId}")
     public ResponseEntity<List<AttendanceDto>> getSectionAttendanceByDate(
             @PathVariable Long sectionId,
-            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
         return ResponseEntity.ok(attendanceService.getSectionAttendanceByDate(sectionId, date));
     }
 

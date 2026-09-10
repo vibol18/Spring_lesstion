@@ -36,12 +36,22 @@ public class HostelController {
         return ResponseEntity.ok(hostelService.getRoomsByBlock(blockId));
     }
 
+    @GetMapping("/rooms")
+    public ResponseEntity<List<HostelRoomDto>> getAllRooms() {
+        return ResponseEntity.ok(hostelService.getAllRooms());
+    }
+
     @PostMapping("/rooms")
     public ResponseEntity<HostelRoomDto> createRoom(@RequestBody HostelRoomDto dto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(hostelService.createRoom(dto));
     }
 
     // --- Allocations ---
+    @GetMapping("/allocations")
+    public ResponseEntity<List<HostelAllocationDto>> getAllocations() {
+        return ResponseEntity.ok(hostelService.getAllocations());
+    }
+
     @PostMapping("/allocations")
     public ResponseEntity<HostelAllocationDto> allocate(@RequestBody HostelAllocationDto dto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(hostelService.allocateRoom(dto));

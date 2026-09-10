@@ -54,6 +54,20 @@ public class FeePaymentServiceImpl implements FeePaymentService {
     }
 
     @Override
+    public List<FeePaymentDto> getAllPayments() {
+        return paymentRepository.findAll().stream()
+                .map(this::mapToDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public FeePaymentDto getPaymentById(Long id) {
+        return paymentRepository.findById(id)
+                .map(this::mapToDto)
+                .orElseThrow(() -> new RuntimeException("Fee payment not found with ID: " + id));
+    }
+
+    @Override
     public List<FeePaymentDto> getPaymentsByStudent(Long studentId) {
         return paymentRepository.findAll().stream()
                 .filter(p -> p.getStudent() != null && p.getStudent().getId().equals(studentId))

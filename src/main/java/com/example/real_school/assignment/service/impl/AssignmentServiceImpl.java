@@ -32,6 +32,14 @@ public class AssignmentServiceImpl implements AssignmentService {
 
     @Override
     @Transactional(readOnly = true)
+    public List<AssignmentDto> getAllAssignments() {
+        return assignmentRepository.findAll().stream()
+                .map(this::mapToDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    @Transactional(readOnly = true)
     public List<AssignmentDto> getAssignmentsBySection(Long sectionId) {
         return assignmentRepository.findBySectionId(sectionId).stream()
                 .map(this::mapToDto)

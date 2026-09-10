@@ -83,6 +83,15 @@ public class ExamResultServiceImpl implements ExamResultService {
         ExamResultDto dto = new ExamResultDto();
         dto.setId(result.getId());
         dto.setExamScheduleId(result.getExamSchedule().getId());
+        if (result.getExamSchedule().getExam() != null) {
+            dto.setExamId(result.getExamSchedule().getExam().getId());
+            dto.setExamName(result.getExamSchedule().getExam().getName());
+        }
+        if (result.getExamSchedule().getSubject() != null) {
+            dto.setSubjectId(result.getExamSchedule().getSubject().getId());
+            dto.setSubjectName(result.getExamSchedule().getSubject().getName());
+        }
+        dto.setTotalMarks(result.getExamSchedule().getMaxMarks());
         dto.setStudentId(result.getStudent().getId());
         dto.setMarksObtained(result.getMarksObtained());
         dto.setGrade(result.getGrade());

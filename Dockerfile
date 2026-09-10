@@ -3,7 +3,6 @@
 # Builds with Maven, runs on a slim Java 21 JRE. Linux/Style-safe
 # (no Windows paths, no reliance on ./mvnw scripts).
 # ============================================================
-
 # ---- Stage 1: build ----
 FROM maven:3.9-eclipse-temurin-21 AS build
 

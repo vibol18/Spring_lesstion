@@ -45,6 +45,17 @@ public class User {
     @Builder.Default
     private boolean isActive = true;
 
+    @Column(length = 30)
+    private String phone;
+
+    @Column(name = "two_factor_enabled", nullable = false)
+    @Builder.Default
+    private boolean twoFactorEnabled = false;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "two_factor_method", length = 20)
+    private TwoFactorMethod twoFactorMethod;
+
     @Column(name = "last_login")
     private LocalDateTime lastLogin;
 

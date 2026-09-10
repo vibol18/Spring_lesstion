@@ -4,6 +4,7 @@ import com.example.real_school.assignment.dto.AssignmentDto;
 import java.util.List;
 
 public interface AssignmentService {
+    List<AssignmentDto> getAllAssignments();
     List<AssignmentDto> getAssignmentsBySection(Long sectionId);
     AssignmentDto getAssignmentById(Long id);
     AssignmentDto createAssignment(AssignmentDto dto);

@@ -107,6 +107,13 @@ public class TransportServiceImpl implements TransportService {
     }
 
     @Override
+    public List<StudentTransportDto> getAllStudentTransport() {
+        return studentTransportRepository.findAll().stream()
+                .map(this::mapStudentTransportToDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public List<StudentTransportDto> getStudentTransport(Long studentId) {
         return studentTransportRepository.findAll().stream()
                 .filter(st -> st.getStudent() != null && st.getStudent().getId().equals(studentId))

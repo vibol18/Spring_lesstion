@@ -13,6 +13,13 @@ PUT    /api/users/{id}
 DELETE /api/users/{id}
 PATCH  /api/users/{id}/status
 
+=================== TWO-FACTOR AUTH (SETTINGS) ===================
+GET    /api/users/{id}/two-factor/status
+POST   /api/users/{id}/two-factor/enable   { method: EMAIL|PHONE, phone? }
+POST   /api/users/{id}/two-factor/verify   { code }
+POST   /api/users/{id}/two-factor/disable  { password }
+PUT    /api/users/{id}/two-factor/phone    { phone }
+
 =================== ACADEMIC STRUCTURE ===================
 GET    /api/academic-years
 POST   /api/academic-years

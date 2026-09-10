@@ -16,5 +16,6 @@ public interface TransportService {
     TransportStopDto addStop(TransportStopDto dto);
 
     StudentTransportDto assignStudentToRoute(StudentTransportDto dto);
+    List<StudentTransportDto> getAllStudentTransport();
     List<StudentTransportDto> getStudentTransport(Long studentId);
 }

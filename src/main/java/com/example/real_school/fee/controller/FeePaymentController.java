@@ -22,6 +22,11 @@ public class FeePaymentController {
         return ResponseEntity.status(HttpStatus.CREATED).body(feePaymentService.makePayment(dto));
     }
 
+    @GetMapping
+    public ResponseEntity<List<FeePaymentDto>> getAll() {
+        return ResponseEntity.ok(feePaymentService.getAllPayments());
+    }
+
     @GetMapping("/student/{studentId}")
     public ResponseEntity<List<FeePaymentDto>> getByStudent(@PathVariable Long studentId) {
         return ResponseEntity.ok(feePaymentService.getPaymentsByStudent(studentId));
@@ -30,6 +35,11 @@ public class FeePaymentController {
     @GetMapping("/pending")
     public ResponseEntity<List<FeePaymentDto>> getPending() {
         return ResponseEntity.ok(feePaymentService.getPendingPayments());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<FeePaymentDto> getById(@PathVariable Long id) {
+        return ResponseEntity.ok(feePaymentService.getPaymentById(id));
     }
 
     @GetMapping("/{id}/receipt-pdf")

@@ -17,6 +17,11 @@ public class AssignmentController {
 
     private final AssignmentService assignmentService;
 
+    @GetMapping
+    public ResponseEntity<List<AssignmentDto>> getAll() {
+        return ResponseEntity.ok(assignmentService.getAllAssignments());
+    }
+
     @GetMapping("/section/{sectionId}")
     public ResponseEntity<List<AssignmentDto>> getBySection(@PathVariable Long sectionId) {
         return ResponseEntity.ok(assignmentService.getAssignmentsBySection(sectionId));

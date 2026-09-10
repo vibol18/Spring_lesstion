@@ -47,6 +47,11 @@ public class HostelServiceImpl implements HostelService {
 
     // --- Rooms ---
     @Override
+    public List<HostelRoomDto> getAllRooms() {
+        return roomRepository.findAll().stream().map(this::mapRoomToDto).collect(Collectors.toList());
+    }
+
+    @Override
     public List<HostelRoomDto> getRoomsByBlock(Long blockId) {
         return roomRepository.findAll().stream()
                 .filter(r -> r.getHostelBlock() != null && r.getHostelBlock().getId().equals(blockId))
@@ -69,6 +74,13 @@ public class HostelServiceImpl implements HostelService {
     }
 
     // --- Allocations ---
+    @Override
+    public List<HostelAllocationDto> getAllocations() {
+        return allocationRepository.findAll().stream()
+                .map(this::mapAllocationToDto)
+                .collect(Collectors.toList());
+    }
+
     @Override
     public HostelAllocationDto allocateRoom(HostelAllocationDto dto) {
         HostelRoom room = roomRepository.findById(dto.getRoomId())

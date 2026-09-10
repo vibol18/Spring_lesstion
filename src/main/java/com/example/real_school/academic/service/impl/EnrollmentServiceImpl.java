@@ -38,6 +38,13 @@ public class EnrollmentServiceImpl implements EnrollmentService {
     }
 
     @Override
+    public EnrollmentDto getEnrollmentById(Long id) {
+        return enrollmentRepository.findById(id)
+                .map(this::mapToDto)
+                .orElseThrow(() -> new RuntimeException("Enrollment not found with ID: " + id));
+    }
+
+    @Override
     public EnrollmentDto createEnrollment(EnrollmentDto dto) {
         Enrollment enrollment = new Enrollment();
         enrollment.setStudentId(dto.getStudentId());

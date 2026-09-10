@@ -83,6 +83,13 @@ public class LibraryServiceImpl implements LibraryService {
     }
 
     @Override
+    public List<LibraryTransactionDto> getAllTransactions() {
+        return transactionRepository.findAll().stream()
+                .map(this::mapToTransactionDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public LibraryTransactionDto issueBook(LibraryTransactionDto dto) {
         LibraryBook book = bookRepository.findById(dto.getBookId())
                 .orElseThrow(() -> new RuntimeException("Book not found"));
