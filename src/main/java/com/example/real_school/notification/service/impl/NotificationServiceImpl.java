@@ -26,9 +26,21 @@ public class NotificationServiceImpl implements NotificationService {
     @Override
     public List<NotificationDto> getUnreadByRecipient(Long recipientId, String recipientType) {
         return notificationRepository.findAll().stream()
-                .filter(n -> n.getRecipientId() != null && n.getRecipientId().equals(recipientId)
-                        && recipientType.equalsIgnoreCase(n.getRecipientType())
-                        && Boolean.FALSE.equals(n.getIsRead()))
+                .filter(n -> Boolean.FALSE.equals(n.getIsRead()))
+                .filter(n -> {
+                    // The recipient must match in one of two ways:
+                    //  1) a direct notification sent to this specific user, or
+                    //  2) a role broadcast targeting this user's role (recipientId == null),
+                    //     so notifications with no recipient id are visible to every user
+                    //     of the selected role.
+                    final boolean targetsThisUser = n.getRecipientId() != null
+                            && n.getRecipientId().equals(recipientId);
+                    final boolean targetsUserRole =
+                            (n.getRecipientId() == null)
+                                    && (recipientType.equalsIgnoreCase(n.getRecipientType())
+                                            || "ALL".equalsIgnoreCase(n.getRecipientType()));
+                    return targetsThisUser || targetsUserRole;
+                })
                 .map(this::mapToDto)
                 .collect(Collectors.toList());
     }

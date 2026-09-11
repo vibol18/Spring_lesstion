@@ -9,6 +9,4 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class AuditEventListener {
     private final AuditLogRepository auditLogRepository;
-
-    // TODO: Implement audit event handling
 }
