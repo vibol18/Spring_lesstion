@@ -17,7 +17,6 @@ import java.util.stream.Collectors;
 @Service
 @Transactional
 public class ExamResultServiceImpl implements ExamResultService {
-
     private final ExamResultRepository resultRepository;
     private final ExamScheduleRepository scheduleRepository;
     private final StudentRepository studentRepository;
@@ -65,7 +64,6 @@ public class ExamResultServiceImpl implements ExamResultService {
         
         return mapToDto(resultRepository.save(result));
     }
-
     @Override
     public ExamResultDto updateResult(Long id, ExamResultDto dto) {
         ExamResult result = resultRepository.findById(id)

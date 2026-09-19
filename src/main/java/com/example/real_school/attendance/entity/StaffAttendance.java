@@ -20,7 +20,7 @@ public class StaffAttendance {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private User user; // References teacher or staff user
+    private User user; 
 
     private LocalDate date;
 

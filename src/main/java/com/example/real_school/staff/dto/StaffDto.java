@@ -10,4 +10,10 @@ public class StaffDto {
     private String designation;
     private String department;
     private LocalDate dateOfJoining;
+
+    private Long userId;
+    private String firstName;
+    private String lastName;
+    private String email;
+    private String phone;
 }

@@ -73,6 +73,13 @@ public class StaffServiceImpl implements StaffService {
         dto.setDesignation(staff.getDesignation());
         dto.setDepartment(staff.getDepartment());
         dto.setDateOfJoining(staff.getDateOfJoining());
+        if (staff.getUser() != null) {
+            dto.setUserId(staff.getUser().getId());
+            dto.setFirstName(staff.getUser().getFirstName());
+            dto.setLastName(staff.getUser().getLastName());
+            dto.setEmail(staff.getUser().getEmail());
+            dto.setPhone(staff.getUser().getPhone());
+        }
         return dto;
     }
 }
