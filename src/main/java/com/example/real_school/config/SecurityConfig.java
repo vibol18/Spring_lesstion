@@ -84,6 +84,9 @@ public class SecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(PUBLIC_ENDPOINTS).permitAll()
+                        // Public GET so the login/register pages and site headers can load the
+                        // school name + logo without a token. Updates stay admin-only via @PreAuthorize.
+                        .requestMatchers(org.springframework.http.HttpMethod.GET, "/api/school/settings").permitAll()
                         .anyRequest().authenticated()
                 )
                 .exceptionHandling(ex -> ex

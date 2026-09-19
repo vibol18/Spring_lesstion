@@ -1,4 +1,4 @@
-package com.example.real_school.exam.service.impl;
+    package com.example.real_school.exam.service.impl;
 
 import com.example.real_school.exam.dto.ExamResultDto;
 import com.example.real_school.exam.entity.ExamResult;
@@ -29,7 +29,6 @@ public class ExamResultServiceImpl implements ExamResultService {
         this.scheduleRepository = scheduleRepository;
         this.studentRepository = studentRepository;
     }
-
     @Override
     public List<ExamResultDto> getResultsByStudent(Long studentId) {
         return resultRepository.findAll().stream()

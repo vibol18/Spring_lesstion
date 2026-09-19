@@ -4,6 +4,8 @@ import com.example.real_school.user.entity.Role;
 import com.example.real_school.user.entity.User;
 import com.example.real_school.user.repository.RoleRepository;
 import com.example.real_school.user.repository.UserRepository;
+import com.example.real_school.settings.entity.SchoolSettings;
+import com.example.real_school.settings.repository.SchoolSettingsRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -21,6 +23,7 @@ public class DataInitializer implements CommandLineRunner {
     private final RoleRepository roleRepository;
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final SchoolSettingsRepository schoolSettingsRepository;
 
     @Value("${app.admin.username:admin}")
     private String adminUsername;
@@ -55,6 +58,22 @@ public class DataInitializer implements CommandLineRunner {
         }
 
         seedDefaultAdmin();
+        seedDefaultSchoolSettings();
+    }
+
+    /** Creates the single school_settings row (id=1) so the public name/logo
+     *  endpoint always has something to return. The admin can change it later. */
+    private void seedDefaultSchoolSettings() {
+        if (schoolSettingsRepository.existsById(1L)) {
+            return;
+        }
+        schoolSettingsRepository.save(SchoolSettings.builder()
+                .id(1L)
+                .name("EduCore School")
+                .shortName("EC")
+                .tagline("Manage your entire school in one place")
+                .build());
+        log.info("Seeded default school settings");
     }
 
     private void seedDefaultAdmin() {
