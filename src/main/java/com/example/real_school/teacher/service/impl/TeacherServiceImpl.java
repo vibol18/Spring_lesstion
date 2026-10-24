@@ -1,6 +1,8 @@
 package com.example.real_school.teacher.service.impl;
 
 import com.example.real_school.academic.dto.SubjectDto;
+import com.example.real_school.academic.entity.Subject;
+import com.example.real_school.academic.repository.SubjectRepository;
 import com.example.real_school.teacher.dto.TeacherDto;
 import com.example.real_school.teacher.entity.Teacher;
 import com.example.real_school.teacher.repository.TeacherRepository;
@@ -16,9 +18,11 @@ import java.util.stream.Collectors;
 public class TeacherServiceImpl implements TeacherService {
 
     private final TeacherRepository teacherRepository;
+    private final SubjectRepository subjectRepository;
 
-    public TeacherServiceImpl(TeacherRepository teacherRepository) {
+    public TeacherServiceImpl(TeacherRepository teacherRepository, SubjectRepository subjectRepository) {
         this.teacherRepository = teacherRepository;
+        this.subjectRepository = subjectRepository;
     }
     @Override
     public List<TeacherDto> getAllTeachers() {
@@ -62,8 +66,12 @@ public class TeacherServiceImpl implements TeacherService {
     }
     @Override
     public List<SubjectDto> getTeacherSubjects(Long id) {
-        // Basic impl, extend with ClassSubjectTeacher joins if needed
-        return Collections.emptyList();
+        if (!teacherRepository.existsById(id)) {
+            throw new RuntimeException("Teacher not found with ID: " + id);
+        }
+        return subjectRepository.findByTeachers_Id(id).stream()
+                .map(this::mapSubjectToDto)
+                .collect(Collectors.toList());
     }
     @Override
     public List<TimetableDto> getTeacherTimetable(Long id) {
@@ -76,6 +84,17 @@ public class TeacherServiceImpl implements TeacherService {
         dto.setQualification(teacher.getQualification());
         dto.setExperienceYears(teacher.getExperienceYears());
         dto.setDateOfJoining(teacher.getDateOfJoining());
+        return dto;
+    }
+
+    private SubjectDto mapSubjectToDto(Subject subject) {
+        SubjectDto dto = new SubjectDto();
+        dto.setId(subject.getId());
+        dto.setName(subject.getName());
+        dto.setCode(subject.getCode());
+        dto.setTeacherIds(subject.getTeachers().stream()
+                .map(Teacher::getId)
+                .collect(Collectors.toList()));
         return dto;
     }
 }
