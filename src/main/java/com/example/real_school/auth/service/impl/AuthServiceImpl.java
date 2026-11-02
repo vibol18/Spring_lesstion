@@ -51,8 +51,6 @@ public class AuthServiceImpl implements AuthService {
 
     @Value("${app.password-reset.expiration-minutes}")
     private long passwordResetExpirationMinutes;
-
-
     @Override
     @Transactional
     public LoginResponse authenticateUser(LoginRequest loginRequest) {
