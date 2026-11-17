@@ -83,10 +83,23 @@ public class AuthServiceImpl implements AuthService {
             throw new BadRequestException("Email is already registered");
         }
 
-        // Self-registration always creates a default USER account.
-        // Elevated roles can only be granted by an ADMIN.
-        Role role = roleRepository.findByName(Role.USER)
-                .orElseThrow(() -> new ResourceNotFoundException("Role not found: " + Role.USER));
+        // Determine the role: use the requested role from the registration payload,
+        // otherwise default to USER. This allows self-registration with a role choice
+        // while keeping USER as the safe default.
+        String requestedRole = registerRequest.getRole();
+        Role role;
+        if (requestedRole != null && !requestedRole.trim().isEmpty()) {
+            role = roleRepository.findByName(requestedRole)
+                    .orElseGet(() -> {
+                        // Fall back to USER if the requested role doesn't exist in DB.
+                        return roleRepository.findByName(Role.USER)
+                                .orElseThrow(() -> new ResourceNotFoundException("Role not found: " + Role.USER));
+                    });
+        } else {
+            // Default to USER for self-registration when no role is specified.
+            role = roleRepository.findByName(Role.USER)
+                    .orElseThrow(() -> new ResourceNotFoundException("Role not found: " + Role.USER));
+        }
 
         User user = User.builder()
                 .username(registerRequest.getUsername())
