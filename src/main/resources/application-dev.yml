@@ -1,13 +1,11 @@
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/real_school?createDatabaseIfNotExist=true&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
-    username: root
-    password:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-  # The migrations in db/migration use PostgreSQL syntax (BIGSERIAL), so Flyway
-  # stays off for the local MySQL dev database. Hibernate "update" builds the schema.
+    url: jdbc:postgresql://localhost:5432/real_school?sslmode=disable
+    username: postgres
+    password: real_school_dev_password
+    driver-class-name: org.postgresql.Driver
   flyway:
-    enabled: false
+    enabled: true
   jpa:
     hibernate:
       ddl-auto: update

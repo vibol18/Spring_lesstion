@@ -31,7 +31,6 @@ public class HeroBannerServiceImpl implements HeroBannerService {
                 .map(this::mapToDto)
                 .collect(Collectors.toList());
     }
-
     @Override
     public HeroBannerDto createBanner(HeroBannerDto dto) {
         HeroBanner banner = HeroBanner.builder()
@@ -49,7 +48,7 @@ public class HeroBannerServiceImpl implements HeroBannerService {
     @Override
     public HeroBannerDto updateBanner(Long id, HeroBannerDto dto) {
         HeroBanner banner = heroBannerRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Hero banner not found: " + id));
+        .orElseThrow(() -> new RuntimeException("Hero banner not found: " + id));
         banner.setImageUrl(dto.getImageUrl());
         banner.setHeadline(dto.getHeadline());
         banner.setDescription(dto.getDescription());
